@@ -1,4 +1,3 @@
-、、、{r}
 require("pacman")
 
 p_load(magrittr, sentimentr, rsvg, stm, ggthemes, SnowballC, stopwords, pluralize, stm, ldatuning, stopwords, quanteda, tm, textclean, stringr, reticulate, purrr, furrr, progress, tictoc, lubridate, progress, rio, tidyverse, RSelenium, rvest, foreach, tryCatchLog, stringi, cld2, tidytext, quanteda, tidyfst, httr, tictoc, miceadds, sandwich, urltools) 
@@ -55,9 +54,7 @@ saveRDS(shanghai_id, file = "上海_id.Rdata", compress = F)
 
 shanghai_id %>% 
   distinct(id, .keep_all = T) -> shanghai_id
-
-# 内容 -------------------------------------------------------------------------
-
+  
 remDr$getWindowHandles() -> handles
 remDr$switchToWindow(handles[[1]])
 
@@ -188,4 +185,4 @@ contents %>%
   rename(链接 = link) -> share
 
 rio::export(share, file = "人民网留言板上海.xlsx")
-、、、
+
