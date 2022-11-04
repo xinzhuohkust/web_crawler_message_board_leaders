@@ -1,7 +1,10 @@
 ```{r message=FALSE, warning=FALSE}
-require("pacman")
 
-p_load(magrittr, sentimentr, rsvg, stm, ggthemes, SnowballC, stopwords, pluralize, stm, ldatuning, stopwords, quanteda, tm, textclean, stringr, reticulate, purrr, furrr, progress, tictoc, lubridate, progress, rio, tidyverse, RSelenium, rvest, foreach, tryCatchLog, stringi, cld2, tidytext, quanteda, tidyfst, httr, tictoc, miceadds, sandwich, urltools) 
+require("pacman") # package management
+
+p_load(tidyverse, Rselenium, rvest, parsel, rio) 
+
+# ID 
 
 driver<- rsDriver(port = 4446L, browser=c("firefox"))
 remDr <- driver[["client"]]
@@ -17,7 +20,8 @@ sprintf("http://liuyan.people.com.cn/threads/list?checkStatus=0&fid=%s", leader)
 prase <- function(x){x$getElementText() %>% 
     unlist()}
 
-shanghai_id <- tibble()
+shanghai_id <- tibble() # get id of leaders in shanghai
+
 for (leader in leaders) {
 remDr$navigate(leader)
 containers <- tibble()
@@ -48,19 +52,13 @@ for (h in 2:4) {
 bind_rows(containers, shanghai_id) -> shanghai_id
 }
 
-dir.create("D:\\OneDrive - HKUST Connect\\haibin\\留言板")
-setwd("D:\\OneDrive - HKUST Connect\\haibin\\留言板")
-
-saveRDS(shanghai_id, file = "上海_id.Rdata", compress = F)
-
 shanghai_id %>% 
-  distinct(id, .keep_all = T) -> shanghai_id
+  distinct(id, .keep_all = T) -> shanghai_id # remove duplicates
 
-# 内容 -------------------------------------------------------------------------
+# Contents 
 
 remDr$getWindowHandles() -> handles
 remDr$switchToWindow(handles[[1]])
-
 
 shanghai_id %>% 
   mutate(link = map_chr(id, ~ str_extract(., "\\d+")) |> sprintf(fmt = "http://liuyan.people.com.cn/threads/content?tid=%s")) -> shanghai_id
@@ -81,24 +79,19 @@ get_contents <- function(x) {
   tibble(web, link) -> contents
   
   return(contents)
-}
-
-remDr$navigate("http://liuyan.people.com.cn/threads/content?tid=9659442")
-
+} # multisessions
 
 contents <- parsel::parscrape(scrape_fun = get_contents,
                               scrape_input = input,
-                              cores = 6,
+                              cores = 16, # using 16 cpu cores
                               packages = c("RSelenium","rvest", "tidyverse"),
                               browser = "firefox",
                               scrape_tries = 3)
-
-saveRDS(contents, file = "上海_contents.Rdata", compress = F)
-
+                              
 contents$scraped_results %>% 
   bind_rows() -> contents
 
-
+# Parse 
 
 parse <- function(x){
 
