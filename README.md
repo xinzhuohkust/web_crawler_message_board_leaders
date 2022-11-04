@@ -1,4 +1,4 @@
-、、、{r}
+```{r message=FALSE, warning=FALSE}
 require("pacman")
 
 p_load(magrittr, sentimentr, rsvg, stm, ggthemes, SnowballC, stopwords, pluralize, stm, ldatuning, stopwords, quanteda, tm, textclean, stringr, reticulate, purrr, furrr, progress, tictoc, lubridate, progress, rio, tidyverse, RSelenium, rvest, foreach, tryCatchLog, stringi, cld2, tidytext, quanteda, tidyfst, httr, tictoc, miceadds, sandwich, urltools) 
@@ -188,4 +188,4 @@ contents %>%
   rename(链接 = link) -> share
 
 rio::export(share, file = "人民网留言板上海.xlsx")
-、、、
+```
