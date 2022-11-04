@@ -28,9 +28,13 @@ prase <- function(x){x$getElementText() %>%
 shanghai_id <- tibble() # get id of leaders in shanghai
 
 for (leader in leaders) {
+
 remDr$navigate(leader)
+
 containers <- tibble()
+
 for (h in 2:4) {
+  
   remDr$findElements(using = "xpath", value = "//*[contains(@role, 'tab')]") -> tab
   tab[[h]]$clickElement()
   
@@ -53,7 +57,9 @@ for (h in 2:4) {
            status = map_chr(status, prase),
            label = map_chr(label, prase)) -> container
   bind_rows(containers, container) -> containers
+  
 }
+
 bind_rows(containers, shanghai_id) -> shanghai_id
 }
 
