@@ -2,7 +2,7 @@
 
 It is a web crawler based on R leveraging parallel processing to import information from [Message Board for Leaders](http://liuyan.people.com.cn/).
 
-这是一个多线程爬虫, 用以爬取人民网地方领导留言板上的内容
+这是一个多线程爬虫, 用以爬取人民网领导留言板上的内容
 
 ```{r message=FALSE, warning=FALSE}
 
