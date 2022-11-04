@@ -1,3 +1,5 @@
+这是一个多线程爬虫, 用以爬取人民网留言板上（LLMB）的内容
+
 ```{r message=FALSE, warning=FALSE}
 
 require("pacman") # package management
