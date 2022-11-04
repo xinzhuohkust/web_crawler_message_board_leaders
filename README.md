@@ -21,6 +21,7 @@ c(555, 943, 947, 949, 951, 953, 957, 959, 961, 963, 965, 967, 969, 971, 973, 977
 c(leader, leader + 1) -> leader
 
 sprintf("http://liuyan.people.com.cn/threads/list?checkStatus=0&fid=%s", leader) -> leaders
+
 prase <- function(x){x$getElementText() %>% 
     unlist()}
 
