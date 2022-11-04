@@ -1,4 +1,6 @@
-这是一个多线程爬虫, 用以爬取人民网留言板上（LLMB）的内容
+It is a web crawler based on R leveraging parallel processing to import information from [Message Board for Leaders](http://liuyan.people.com.cn/).
+
+这是一个多线程爬虫, 用以爬取人民网领导留言板上（LLMB）的内容
 
 ```{r message=FALSE, warning=FALSE}
 
